@@ -6,6 +6,8 @@ import psutil
 import datetime
 import time
 import random
+import os, sys
+from daemonize import Daemonize
 from subprocess import PIPE, Popen
 
 
@@ -75,8 +77,14 @@ def fill_screen():
         set_lcd_line(i,picked[i]())
 
         
-
-if __name__== "__main__":
+def main():
     while(True):
         fill_screen()
         time.sleep(30)
+
+
+if __name__ == '__main__':
+        myname=os.path.basename(sys.argv[0])
+        pidfile='/tmp/%s' % myname       # any name
+        daemon = Daemonize(app=myname,pid=pidfile, action=main)
+        daemon.start()

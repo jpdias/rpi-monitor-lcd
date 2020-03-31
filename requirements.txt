@@ -1,1 +1,2 @@
 psutil==5.7.0
+daemonize==2.5.0
