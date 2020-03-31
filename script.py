@@ -17,31 +17,31 @@ lcd_size_of_row = 16
 
 def set_lcd_line(line, msg):
     #max 16 chars
-    if(len(str) > lcd_size_of_row):
+    if(len(msg) > lcd_size_of_row):
         raise Exception("Line lenght max size of 16")
     pilcd.lcd_display_string(msg, line)
     return 0
 
-def get_ip_address(wifi = True):
+def get_ip_address(wifi = False):
     #wifi or eth
     ip = psutil.net_if_addrs()["eth0"][0].address
     if(wifi):
         ip = psutil.net_if_addrs()["wlan0"][0].address
-        return "wl {:>15}".format(ip)
-    return "et {:>15}".format(ip)
+        return "wl {:>13}".format(ip)
+    return "et {:>13}".format(ip)
 
 def uptime():
     uptime = time.time() - psutil.boot_time()
-    uptimeformated = datetime.datetime.fromtimestamp(uptime).strftime("%H:%M:%S")
-    return "upt {:>12}".format(uptimeformated)
+    uptimedays = datetime.datetime.fromtimestamp(uptime).days
+    return "uptime {:>8}d".format(uptimedays)
 
 def last_reboot():
-    firsttimestamp = datetime.datetime.fromtimestamp(psutil.boot_time()).strftime("%H:%M:%S")
+    firsttimestamp = datetime.datetime.fromtimestamp(psutil.boot_time()).strftime("%d %m %y")
     return "boot {:>11}".format(firsttimestamp)
 
 def get_cpu_temperature():
     temp = psutil.sensors_temperatures()["cpu-thermal"][0].current;
-    return "CPU Temp {0:>3.1f} C".format(temp)
+    return "CPU Temp {0:>4.1f} C".format(temp)
 
 def get_ram_usage():
     # vmem(total=8589934592L, available=4073336832L, percent=52.6, used=5022085120L, free=3560255488L, active=2817949696L, inactive=513081344L, wired=1691054080L)
@@ -71,8 +71,7 @@ def fill_screen():
             picked.append(res)
 
     for i in range(len(picked)):
-        print(picked[i]())
-        set_lcd_line(i,picked[i]())
+        set_lcd_line(i+1, picked[i]())
 
         
 def main():
