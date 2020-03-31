@@ -43,7 +43,7 @@ def last_reboot():
 
 def get_cpu_temperature():
     temp = psutil.sensors_temperatures()["cpu-thermal"][0].current;
-    return "CPU Temp {0:>3.1f}ºC".format(temp)
+    return "CPU Temp {0:>3.1f} C".format(temp)
 
 def get_ram_usage():
     # vmem(total=8589934592L, available=4073336832L, percent=52.6, used=5022085120L, free=3560255488L, active=2817949696L, inactive=513081344L, wired=1691054080L)
