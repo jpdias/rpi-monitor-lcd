@@ -10,9 +10,7 @@ import os, sys
 from daemonize import Daemonize
 from subprocess import PIPE, Popen
 
-
-lcddriver = I2C_LCD_driver(0x3f)
-pilcd = lcddriver.lcd()
+pilcd = I2C_LCD_driver.lcd(0x3f)
 
 lcd_number_of_lines = 2
 lcd_size_of_row = 16
