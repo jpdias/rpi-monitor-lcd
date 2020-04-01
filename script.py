@@ -27,8 +27,8 @@ def get_ip_address(wifi = False):
     ip = psutil.net_if_addrs()["eth0"][0].address
     if(wifi):
         ip = psutil.net_if_addrs()["wlan0"][0].address
-        return "wl {:>12}".format(ip)
-    return "et {:>12}".format(ip)
+        return "wl {:>13}".format(ip)
+    return "et {:>13}".format(ip)
 
 def uptime():
     uptime = datetime.datetime.now() - datetime.datetime.fromtimestamp(round(psutil.boot_time()))
@@ -73,12 +73,10 @@ def fill_screen():
     for i in range(len(picked)):
         set_lcd_line(i+1, picked[i]())
 
-        
 def main():
     while(True):
         fill_screen()
         time.sleep(30)
-
 
 if __name__ == '__main__':
         myname=os.path.basename(sys.argv[0])
