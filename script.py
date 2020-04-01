@@ -49,10 +49,10 @@ def get_cpu_temperature():
 
 def get_ram_usage():
     # vmem(total=8589934592L, available=4073336832L, percent=52.6, used=5022085120L, free=3560255488L, active=2817949696L, inactive=513081344L, wired=1691054080L)
-    total = psutil.virtual_memory().total // (2**30)
-    used = psutil.virtual_memory().used // (2**30)
+    total = psutil.virtual_memory().total // (2**20)
+    used = psutil.virtual_memory().used // (2**20)
     percent = psutil.virtual_memory().percent
-    return "RAM {0:5.1f}G {1:>4.1f}%".format(total, percent)
+    return "RAM {0:5f}M {1:>4.1f}%".format(total, percent)
 
 def get_cpu_usage():
     current_usage = psutil.cpu_percent(interval=None)
@@ -63,7 +63,7 @@ def get_disk_usage():
     total = shutil.disk_usage('/').total // (2**30)
     used = shutil.disk_usage('/').used // (2**30)
     percent = shutil.disk_usage('/').used / shutil.disk_usage('/').total
-    return "SDc {0:5.1f}G {1:>4.1%}".format(total, percent)
+    return "SD {0:6.1f}G {1:>4.1%}".format(total, percent)
 
 stats = [get_ip_address, uptime, last_reboot, get_cpu_temperature, get_ram_usage, get_cpu_usage, get_disk_usage]
 
