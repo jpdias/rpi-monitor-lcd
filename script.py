@@ -7,10 +7,12 @@ import datetime
 import time
 import random
 import os, sys
-from daemonize import Daemonize
+import daemon
 from subprocess import PIPE, Popen
 
-pilcd = I2C_LCD_driver.lcd(0x3f)
+ADDRESS_LCD = 0x3f
+
+pilcd = I2C_LCD_driver.lcd(ADDRESS_LCD)
 
 lcd_number_of_lines = 2
 lcd_size_of_row = 16
@@ -79,7 +81,5 @@ def main():
         time.sleep(30)
 
 if __name__ == '__main__':
-        myname=os.path.basename(sys.argv[0])
-        pidfile='/tmp/%s' % myname       # any name
-        daemon = Daemonize(app=myname,pid=pidfile, action=main)
-        daemon.start()
+    with daemon.DaemonContext():
+        main()
