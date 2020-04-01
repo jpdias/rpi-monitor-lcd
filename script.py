@@ -70,13 +70,22 @@ def fill_screen():
     while len(picked) != 2:
         res = random.choice(stats)
         if not any(elem == res for elem in picked):
+            #debug
+            print(res.__name__)
             picked.append(res)
 
+    print("refresh screen msg")
     for i in range(len(picked)):
         set_lcd_line(i+1, picked[i]())
 
 
-with daemon.DaemonContext():
+def run():
+    #with daemon.DaemonContext():
     while(True):
         fill_screen()
         time.sleep(30)
+
+
+if __name__ == "__main__":
+    print("Starting daemon")
+    run()
