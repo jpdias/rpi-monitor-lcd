@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import I2C_LCD_driver
 import socket
 import fcntl
