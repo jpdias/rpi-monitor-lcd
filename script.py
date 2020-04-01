@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+# -*- coding: UTF-8 -*-
 
 import I2C_LCD_driver
 import socket
@@ -10,8 +11,6 @@ import datetime
 import time
 import random
 import os, sys
-import daemon
-from subprocess import PIPE, Popen
 
 ADDRESS_LCD = 0x3f
 
@@ -63,8 +62,8 @@ def get_cpu_usage():
 def get_disk_usage():
     total = shutil.disk_usage('/').total // (2**30)
     used = shutil.disk_usage('/').used // (2**30)
-    percent = shutil.disk_usage('/').percent
-    return "SDc {0:5.1f}G {1:>4.1f}%".format(total, percent)
+    percent = shutil.disk_usage('/').used / shutil.disk_usage('/').total
+    return "SDc {0:5.1f}G {1:>4.1%}".format(total, percent)
 
 stats = [get_ip_address, uptime, last_reboot, get_cpu_temperature, get_ram_usage, get_cpu_usage, get_disk_usage]
 
@@ -81,13 +80,7 @@ def fill_screen():
         set_lcd_line(i+1, picked[i]())
 
 
-def run():
-    #with daemon.DaemonContext():
-    while(True):
-        fill_screen()
-        time.sleep(30)
+while(True):
+    fill_screen()
+    time.sleep(30)
 
-
-if __name__ == "__main__":
-    print("Starting daemon")
-    run()

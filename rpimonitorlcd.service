@@ -1,0 +1,10 @@
+[Unit]
+Description=RPi Stats LCD loop
+After=multi-user.target
+
+[Service]
+Type=idle
+ExecStart=/home/pi/Projects/script.py
+
+[Install]
+WantedBy=multi-user.target
