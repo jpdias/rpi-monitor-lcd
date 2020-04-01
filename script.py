@@ -36,7 +36,7 @@ def uptime():
     return "uptime {:>8}d".format(uptimedays)
 
 def last_reboot():
-    firsttimestamp = datetime.datetime.fromtimestamp(psutil.boot_time()).strftime("%d %m %y")
+    firsttimestamp = datetime.datetime.fromtimestamp(psutil.boot_time()).strftime("%d/%m/%y")
     return "boot {:>11}".format(firsttimestamp)
 
 def get_cpu_temperature():
@@ -48,18 +48,18 @@ def get_ram_usage():
     total = psutil.virtual_memory().total/1024/1024
     used = psutil.virtual_memory().used/1024/1024
     percent = psutil.virtual_memory().percent
-    return "RAM {0:4.1f} {1:2.1f}%".format(total, percent)
+    return "RAM {0:6.2f} {1:>3.1f}%".format(total, percent)
 
 def get_cpu_usage():
     current_usage = psutil.cpu_percent(interval=None)
     max_usage = psutil.cpu_freq().max/1000 #GHz
-    return "CPU {0:4.1f} {1:2.1f}%".format(max_usage, current_usage)
+    return "CPU {0:6.2f} {1:>3.1f}%".format(max_usage, current_usage)
 
 def get_disk_usage():
     total = psutil.disk_usage('/').total/1024/1024
     used = psutil.disk_usage('/').used/1024/1024
     percent = psutil.disk_usage('/').percent
-    return "SDc {0:4.1f} {1:2.1f}%".format(total, percent)
+    return "SDc {0:6.2f} {1:>3.1f}%".format(total, percent)
 
 stats = [get_ip_address, uptime, last_reboot, get_cpu_temperature, get_ram_usage, get_cpu_usage, get_disk_usage]
 
