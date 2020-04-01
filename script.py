@@ -27,8 +27,8 @@ def get_ip_address(wifi = False):
     ip = psutil.net_if_addrs()["eth0"][0].address
     if(wifi):
         ip = psutil.net_if_addrs()["wlan0"][0].address
-        return "wl {:>13}".format(ip)
-    return "et {:>13}".format(ip)
+        return "wl {:>12}".format(ip)
+    return "et {:>12}".format(ip)
 
 def uptime():
     uptime = datetime.datetime.now() - datetime.datetime.fromtimestamp(round(psutil.boot_time()))
@@ -48,18 +48,18 @@ def get_ram_usage():
     total = psutil.virtual_memory().total/1024/1024
     used = psutil.virtual_memory().used/1024/1024
     percent = psutil.virtual_memory().percent
-    return "RAM {0:6.2f} {1:>3.1f}%".format(total, percent)
+    return "RAM {0:6.2f} {1:>4.1f}%".format(total, percent)
 
 def get_cpu_usage():
     current_usage = psutil.cpu_percent(interval=None)
     max_usage = psutil.cpu_freq().max/1000 #GHz
-    return "CPU {0:6.2f} {1:>3.1f}%".format(max_usage, current_usage)
+    return "CPU {0:6.2f} {1:>4.1f}%".format(max_usage, current_usage)
 
 def get_disk_usage():
     total = psutil.disk_usage('/').total/1024/1024
     used = psutil.disk_usage('/').used/1024/1024
     percent = psutil.disk_usage('/').percent
-    return "SDc {0:6.2f} {1:>3.1f}%".format(total, percent)
+    return "SDc {0:6.2f} {1:>4.1f}%".format(total, percent)
 
 stats = [get_ip_address, uptime, last_reboot, get_cpu_temperature, get_ram_usage, get_cpu_usage, get_disk_usage]
 
