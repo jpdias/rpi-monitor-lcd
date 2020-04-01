@@ -3,6 +3,7 @@ import socket
 import fcntl
 import struct
 import psutil
+import shutil
 import datetime
 import time
 import random
@@ -47,21 +48,21 @@ def get_cpu_temperature():
 
 def get_ram_usage():
     # vmem(total=8589934592L, available=4073336832L, percent=52.6, used=5022085120L, free=3560255488L, active=2817949696L, inactive=513081344L, wired=1691054080L)
-    total = psutil.virtual_memory().total/1024/1024
-    used = psutil.virtual_memory().used/1024/1024
+    total = psutil.virtual_memory().total // (2**30)
+    used = psutil.virtual_memory().used // (2**30)
     percent = psutil.virtual_memory().percent
-    return "RAM {0:6.2f} {1:>4.1f}%".format(total, percent)
+    return "RAM {0:5.1f}G {1:>4.1f}%".format(total, percent)
 
 def get_cpu_usage():
     current_usage = psutil.cpu_percent(interval=None)
     max_usage = psutil.cpu_freq().max/1000 #GHz
-    return "CPU {0:6.2f} {1:>4.1f}%".format(max_usage, current_usage)
+    return "CPU {0:5.1f}H {1:>4.1f}%".format(max_usage, current_usage)
 
 def get_disk_usage():
-    total = psutil.disk_usage('/').total/1024/1024
-    used = psutil.disk_usage('/').used/1024/1024
+    total = psutil.disk_usage('/').total // (2**30)
+    used = psutil.disk_usage('/').used // (2**30)
     percent = psutil.disk_usage('/').percent
-    return "SDc {0:6.2f} {1:>4.1f}%".format(total, percent)
+    return "SDc {0:5.1f}G {1:>4.1f}%".format(total, percent)
 
 stats = [get_ip_address, uptime, last_reboot, get_cpu_temperature, get_ram_usage, get_cpu_usage, get_disk_usage]
 
@@ -70,12 +71,11 @@ def fill_screen():
     while len(picked) != 2:
         res = random.choice(stats)
         if not any(elem == res for elem in picked):
-            #debug
-            print(res.__name__)
             picked.append(res)
 
-    print("refresh screen msg")
     for i in range(len(picked)):
+        #debug
+        print(picked[i].__name__)
         set_lcd_line(i+1, picked[i]())
 
 
