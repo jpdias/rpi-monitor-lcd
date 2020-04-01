@@ -75,11 +75,8 @@ def fill_screen():
     for i in range(len(picked)):
         set_lcd_line(i+1, picked[i]())
 
-def main():
+
+with daemon.DaemonContext():
     while(True):
         fill_screen()
         time.sleep(30)
-
-if __name__ == '__main__':
-    with daemon.DaemonContext():
-        main()
