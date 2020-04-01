@@ -55,13 +55,13 @@ def get_ram_usage():
 
 def get_cpu_usage():
     current_usage = psutil.cpu_percent(interval=None)
-    max_usage = psutil.cpu_freq().max/1000 #GHz
+    max_usage = round(psutil.cpu_freq().current / 1000, 2) #GHz
     return "CPU {0:5.1f}H {1:>4.1f}%".format(max_usage, current_usage)
 
 def get_disk_usage():
-    total = psutil.disk_usage('/').total // (2**30)
-    used = psutil.disk_usage('/').used // (2**30)
-    percent = psutil.disk_usage('/').percent
+    total = shutil.disk_usage('/').total // (2**30)
+    used = shutil.disk_usage('/').used // (2**30)
+    percent = shutil.disk_usage('/').percent
     return "SDc {0:5.1f}G {1:>4.1f}%".format(total, percent)
 
 stats = [get_ip_address, uptime, last_reboot, get_cpu_temperature, get_ram_usage, get_cpu_usage, get_disk_usage]
