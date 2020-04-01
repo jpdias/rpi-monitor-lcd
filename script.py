@@ -52,7 +52,7 @@ def get_ram_usage():
     total = psutil.virtual_memory().total // (2**20)
     used = psutil.virtual_memory().used // (2**20)
     percent = psutil.virtual_memory().percent
-    return "RAM {0:5f}M {1:>4.1f}%".format(total, percent)
+    return "RAM {0:4f}M {1:>4.1f}%".format(total, percent)
 
 def get_cpu_usage():
     current_usage = psutil.cpu_percent(interval=None)
