@@ -57,7 +57,7 @@ def get_ram_usage():
 def get_cpu_usage():
     current_usage = psutil.cpu_percent(interval=None)
     max_usage = round(psutil.cpu_freq().current / 1000, 2) #GHz
-    return "CPU {0:5.1f}H {1:>4.1f}%".format(max_usage, current_usage)
+    return "CPU {0:4.1f}H {1:>4.1f}%".format(max_usage, current_usage)
 
 def get_disk_usage():
     total = shutil.disk_usage('/').total // (2**30)

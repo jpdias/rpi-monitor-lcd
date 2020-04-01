@@ -4,7 +4,7 @@ After=multi-user.target
 
 [Service]
 Type=idle
-ExecStart=/home/pi/Projects/rpi-monitor-lcd/script.py
+ExecStart=/usr/bin/env python3 /home/pi/Projects/rpi-monitor-lcd/script.py
 
 [Install]
 WantedBy=multi-user.target
