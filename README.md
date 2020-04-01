@@ -11,3 +11,8 @@ A script for displaying random stats in a LCD display (16x2 but works for others
 5. Run `systemctl start rpimonitorlcd`
 6. To add to boot run `systemctl enable rpimonitorlcd`
 
+## Example on NeXTPi
+
+![Example](https://i.imgur.com/1D6mXuk.png)
+
+[Related Blog Post](https://jpdias.me/hardware/2018/11/23/next-pi.html)
